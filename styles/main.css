@@ -26,7 +26,7 @@ body {
 }
 
 .container {
-    marign: 0 auto;
+    margin: 0 auto;
     max-width: 64rem;
 }
 
@@ -51,6 +51,7 @@ body {
     html { font-size: 120%; } 
 }
 
+<<<<<<< HEAD
 .clearfix::before,
 .clearfix::after {
     content: " ";
@@ -60,3 +61,5 @@ body {
 .clearfix::after {
     clear: both;
 }
+=======
+>>>>>>> checkpoint4
