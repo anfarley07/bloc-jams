@@ -1,7 +1,6 @@
 var points = document.getElementsByClassName("point")
 var animatePoints = function(points) {
    var revealPoint = function(point) {
-       console.log(point);
       point.style.opacity = 1;
       point.style.transform = "scaleX(1) translateY(0)";
       point.style.msTransform = "scaleX(1) translateY(0)";
