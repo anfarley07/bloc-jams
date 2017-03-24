@@ -33,7 +33,7 @@ var albumWills = {
     artist: 'Lacy Wills',
     label: 'WVU',
     year: '1954',
-    albumArtURL: 'assets/images/album_covers/16.png',
+    albumArtUrl: 'assets/images/album_covers/16.png',
     songs: [
         { title: 'Up on the Mountain', duration: '2:58' },
         { title: 'Momma Gone Down to Hinton', duration: '4:42'},
@@ -78,9 +78,5 @@ window.onload = function() {
 }
 
 var albumImage = document.getElementsByClassName('album-cover-art')[0];
-albumImage.onclick = function(album) {
-        for (var i = 0; i < albumArray.length; i++) {
-            setCurrentAlbum(albumArray[i]);          
-    }
-};
+albumImage.onclick = forEach(albumArray, setCurrentAlbum);     
 
