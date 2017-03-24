@@ -50,12 +50,17 @@ var setCurrentAlbum = function(album) {
     albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
     albumImage.setAttribute('src', album.albumArtUrl);
     albumSongList.innerHTML = '';
-    
     for (var i = 0; i < album.songs.length; i++) {
         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
     }
 };
 
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    
+    songListContainer.addEventListener('mouseover', function(event) {
+        console.log(event.target);
+    });
 };
+
