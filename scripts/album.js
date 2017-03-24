@@ -28,6 +28,21 @@ var albumMarconi = {
      ]
  };
 
+var albumWills = {
+    title: 'The Old Home Place',
+    artist: 'Lacy Wills',
+    label: 'WVU',
+    year: '1954',
+    albumArtURL: 'assets/images/album_covers/16.png',
+    songs: [
+        { title: 'Up on the Mountain', duration: '2:58' },
+        { title: 'Momma Gone Down to Hinton', duration: '4:42'},
+        { title: 'Amazing Grace', duration: '5:40' },
+        { title: 'Wayfaring Stranger', duration: '3:27' },
+        { title: 'Faith of my Father', duration: '3:59' },
+    ]   
+}
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
       ' <tr class="album-view-song-item">'
@@ -38,6 +53,8 @@ var createSongRow = function(songNumber, songName, songLength) {
     
     return template;
 };
+
+albumArray = [albumPicasso, albumMarconi, albumWills];
 
 var setCurrentAlbum = function(album) {
     var albumTitle = document.getElementsByClassName('album-view-title')[0];
@@ -58,4 +75,12 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+}
+
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+albumImage.onclick = function(album) {
+        for (var i = 0; i < albumArray.length; i++) {
+            setCurrentAlbum(albumArray[i]);          
+    }
 };
+
