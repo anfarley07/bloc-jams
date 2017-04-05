@@ -74,23 +74,24 @@ var currentlyPlayingSong = null;
 
 
 //This determienes whethether to display the play/pause button, or the song number.
-function getSongItem(targetElement) {
-    switch(targetElement){
+function getSongItem(element) {
+    switch(element.className){
         case 'album-song-button':
         case 'ion-play':
         case 'ion-pause':
-            return findParentbyClassName (targetElement, 'song-item-number');
+            return findParentByClassName(element, 'song-item-number');
             break;
         case 'song-item-number':
-            return targetElement;
+            return element;
             break;
         case 'song-item-title':
         case 'song-item-duration':
-            return findParentByClassName (targetElement, 'song-item-number');
+            return findParentByClassName(element, 'album-view-song-item').querySelector('song-item-number');
             break;
         case 'album-view-song-item':
-            return document.querySelector('.album-view-song-item');
-            break;
+            return element.querySelector('.song-item-number');
+        default:
+            return;
     }
 }
 
