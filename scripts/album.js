@@ -66,20 +66,27 @@ function findParentByClassName (element, targetClass) {
     }
 };
 
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+var songRows = document.getElementsByClassName('album-view-song-item');
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
+var currentlyPlayingSong = null;
+
+
 //This determienes whethether to display the play/pause button, or the song number.
 function getSongItem(targetElement) {
     switch(targetElement){
         case 'album-song-button':
         case 'ion-play':
         case 'ion-pause':
-            return findParentbyClassName (element, 'song-item-number');
+            return findParentbyClassName (targetElement, 'song-item-number');
             break;
         case 'song-item-number':
-            return element;
+            return targetElement;
             break;
         case 'song-item-title':
         case 'song-item-duration':
-            return findParentByClassName (element, 'song-item-number');
+            return findParentByClassName (targetElement, 'song-item-number');
             break;
         case 'album-view-song-item':
             return document.querySelector('.album-view-song-item');
@@ -109,11 +116,6 @@ var clickHanlder = function(targetElement) {
 
 
 
-var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
-var songRows = document.getElementsByClassName('album-view-song-item');
-var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
-var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-var currentlyPlayingSong = null;
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
