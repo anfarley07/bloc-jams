@@ -96,7 +96,7 @@ function getSongItem(element) {
 }
 
 //conditional that indicates when to change between play and pause
-var clickHanlder = function(targetElement) {
+var clickHandler = function(targetElement) {
     var songItem = getSongItem(targetElement); 
     //assigns pause button template if there's not a currently playing song
     if (currentlyPlayingSong === null) {
@@ -120,19 +120,23 @@ window.onload = function() {
     setCurrentAlbum(albumPicasso);
     //This shows the play button during mouseover
     songListContainer.addEventListener('mouseover', function(event) {
-        if (event.target.parentElement.className === 'album-view-song-item') {  
+        var songItem = getSongItem(event.target);
+        var songItemNumber = songItem.getAttribute('data-song-number');
+        console.log(event.target);
+        
+        if (songItemNumber !== currentlyPlayingSong) {
+                songItem.innerHTML = songItemNumber; 
+                console.log(event.target);
+        }else if (event.target.parentElement.className === 'album-view-song-item') {  
             event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
-        } else if (songItemNumber!==currentlyPlayingSong) {
-            var songItem = getSongItem(event.target);
-            var songItemNumber = songItem.getAttribute('data-song-number'); 
-            songItem.innerHTML = songItemNumber;
         }
     });
     //this stores the song number and displays it on mouseleave, replacing the play button
     for (var i = 0; i < songRows.length; i++) {
         songRows[i].addEventListener('mouseleave', function(event) {
            //caches song item and song number as a variable to maximize performance
-            var songItem = getSongItem(event.target);
+            var songItem = getSongItem(event);
+            console.log(event);
             var songItemNumber = songItem.getAttribute('data-song-number'); 
             if (songItemNumber !== currentlyPlayingSong) {
                 songItem.innerHTML = songItemNumber;
@@ -140,7 +144,7 @@ window.onload = function() {
         });
     //this calls clickhandler on click
     songRows[i].addEventListener('click', function(event) {
-        clickHanlder(event.target);
+        clickHandler(event.target);
     });
   }
 };
