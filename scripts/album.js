@@ -86,7 +86,7 @@ function getSongItem(element) {
             break;
         case 'song-item-title':
         case 'song-item-duration':
-            return findParentByClassName(element, 'album-view-song-item').querySelector('song-item-number');
+            return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
             break;
         case 'album-view-song-item':
             return element.querySelector('.song-item-number');
@@ -116,20 +116,27 @@ var clickHanlder = function(targetElement) {
 };
 
 
-
-
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
     //This shows the play button during mouseover
     songListContainer.addEventListener('mouseover', function(event) {
-        if (event.target.parentElement.className === 'album-view-song-item') {
+        if (event.target.parentElement.className === 'album-view-song-item') {  
             event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+        } else if (songItemNumber!==currentlyPlayingSong) {
+            var songItem = getSongItem(event.target);
+            var songItemNumber = songItem.getAttribute('data-song-number'); 
+            songItem.innerHTML = songItemNumber;
         }
     });
     //this stores the song number and displays it on mouseleave, replacing the play button
     for (var i = 0; i < songRows.length; i++) {
         songRows[i].addEventListener('mouseleave', function(event) {
-           this.children[0].innerHTML = this.children[0].getAttribute('data-song-number'); 
+           //caches song item and song number as a variable to maximize performance
+            var songItem = getSongItem(event.target);
+            var songItemNumber = songItem.getAttribute('data-song-number'); 
+            if (songItemNumber !== currentlyPlayingSong) {
+                songItem.innerHTML = songItemNumber;
+            }
         });
     //this calls clickhandler on click
     songRows[i].addEventListener('click', function(event) {
