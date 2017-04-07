@@ -59,7 +59,7 @@ var albumMarconi = {
  function findParentByClassName (element, targetClass) {
      if (element) {
          var currentParent = element.parentElement;
-         while(currentParent.className !== null && currentParent.className === targetClass) {
+         while(currentParent.className !== null && currentParent.className !== targetClass) {
              currentParent = currentParent.parentElement
          }
      return currentParent;
@@ -79,19 +79,15 @@ var albumMarconi = {
          case 'album-song-button':
          case 'ion-play':
          case 'ion-pause':
-             console.log(element, 'song-item-number');
              return findParentByClassName(element, 'song-item-number');
          case 'song-item-number':
-             console.log(element);
              return element;
              break;
          case 'song-item-title':
          case 'song-item-duration':
-             console.log(element, 'album-view-song-item');
              return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
              break;
          case 'album-view-song-item':
-             console.log(element.querySelector('.song-item-number'));
              return element.querySelector('.song-item-number');
          default:
              return;
@@ -104,7 +100,6 @@ var clickHandler = function(targetElement) {
       if (currentlyPlayingSong === null) {
           songItem.innerHTML = pauseButtonTemplate;
           currentlyPlayingSong = songItem.getAttribute('data-song-number');
-          console.log(songItem.getAttribute('data-song-number'));
      //changes currently playing song to null and removes pause if pause button is clicked
      }  else if (currentlyPlayingSong === songItem.getAttribute('data-song-number')) {
            songItem.innerHTML = playButtonTemplate;
@@ -112,7 +107,6 @@ var clickHandler = function(targetElement) {
      //in case a song is currently playing and another song is clicked then this assigns pause button to new song
      } else if (currentlyPlayingSong !== songItem.getAttribute('data-song-number')) {
          var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]');
-         console.log(currentlyPlayingSongElement);
          currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
          songItem.innerHTML = pauseButtonTemplate;
          currentlyPlayingSong = songItem.getAttribute('data-song-number');
@@ -136,9 +130,7 @@ var clickHandler = function(targetElement) {
           songRows[i].addEventListener('mouseleave', function(event) {
              //caches song item and song number as a variable to maximize performance
               var songItem = getSongItem(event.target);
-              console.log(event);
-              var songItemNumber = songItem.getAttribute('data-song-number'); 
-              console.log(songItemNumber);
+              var songItemNumber = songItem.getAttribute('data-song-number');
               if (songItemNumber !== currentlyPlayingSong) {
                   songItem.innerHTML = songItemNumber;
               }
