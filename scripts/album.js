@@ -38,19 +38,38 @@ var albumMarconi = {
 
      var $row = $(template);
 
+     var clickHandler = function() {
+        var songNumber = $(this).attr('data-song-number');
+
+           //revert to song number if users plays new song
+        if (currentlyPlayingSong !== null) {
+            var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSong + '"]');
+            currentlyPlayingCell.html(currentlyPlayingSong);
+        }
+        //switch from play to pause for new song
+        if (currentlyPlayingSong !== songNumber) {
+              $(this).html(pauseButtonTemplate);
+              currentlyPlayingSong = songNumber;
+          //switch from pause to play to pause currently playing song
+        } else if (currentlyPlayingSong === songNumber) {
+              $(this).html(playButtonTemplate);
+              currentlyPlayingSong = null;
+        }
+  };
+
      var onHover = function(event) {
-       var songNumber = $(this).find('.song-item-number');
-       var songItem = $(this).find('.data-song-number');
+       var songNumberCell = $(this).find('.song-item-number');
+       var songNumber = songNumberCell.attr('data-song-number');
        if (songNumber !== currentlyPlayingSong) {
-               songItem.html(songNumber);
+               songNumberCell.html(playButtonTemplate);
            }
      };
 
      var offHover = function(event) {
-       var songNumber = $(this).find('.song-item-number');
-       var songItem = $(this).find('.data-song-number');
+       var songNumberCell = $(this).find('.song-item-number');
+       var songNumber = songNumberCell.attr('data-song-number');
           if (songNumber !== currentlyPlayingSong) {
-              songItem.html(playButtonTemplate);
+              songNumberCell.html(songNumber);
           }
      };
 
@@ -76,30 +95,9 @@ var albumMarconi = {
      }
  };
 
-
  var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
  var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
  var currentlyPlayingSong = null;
-
-
- //This determienes whethether to display the play/pause button, or the song number.
-
-
-var clickHandler = function() {
-      var songItem = $(this).find('.data-song-number');
-      //assigns pause button template if there's not a currently playing song
-      if (currentlyPlayingSong !== null) {
-          songItem.html(pauseButtonTemplate);
-     //changes currently playing song to null and removes pause if pause button is clicked
-   }  else if (currentlyPlayingSong === songItem) {
-           $(this).html(playButtonTemplate);
-           currentlyPlayingSong = null;
-     //in case a song is currently playing and another song is clicked then this assigns pause button to new song
-   } else if (currentlyPlayingSong !== songItem) {
-         $(this).html(pauseButtonTemplate);
-         currentlyPlayingSong = songItem;
-     }
- };
 
  $(document).ready(function() {
       setCurrentAlbum(albumPicasso);
