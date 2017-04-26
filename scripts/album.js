@@ -98,22 +98,22 @@ var nextSong = function() {
         currentSongIndex++;
         currentSongIndex = 0;
         currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+        var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+        $nextSongNumberCell.html(pauseButtonTemplate);
 
     } else if (currentSongIndex < 0) {
       var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
       currentSongIndex--;
         currentSongIndex = currentAlbum.songs.length - 1;
         currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+        var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+        $previousSongNumberCell.html(pauseButtonTemplate);
     }
     var lastSongNumber = currentlyPlayingSongNumber;
-    
+
     updatePlayerBarSong();
     $('.main-controls .play-pause').html(playerBarPauseButton);
-    var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
-    var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
-    $nextSongNumberCell.html(pauseButtonTemplate);
-    $previousSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
 
 };
