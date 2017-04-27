@@ -91,25 +91,22 @@ var clickHandler = function() {
      $('.main-controls .play-pause').html(playerBarPauseButton);
  };
 
-var nextSong = function() {
+var nextPrevious = function(event) {
+    var isNext = $(event.currentTarget).hasClass('next');
+    var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     //goes to first song if at last song (loop forward)
-    if (currentSongIndex >= currentAlbum.songs.length) {
-        var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+    if (isNext === true) {
         currentSongIndex++;
-        currentSongIndex = 0;
-        currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-        var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+        var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber + 1);
         $nextSongNumberCell.html(pauseButtonTemplate);
 
-    } else if (currentSongIndex < 0) {
-      var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
-      currentSongIndex--;
-        currentSongIndex = currentAlbum.songs.length - 1;
-        currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-        var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+    } else {
+        currentSongIndex--;
+        var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber - 1);
         $previousSongNumberCell.html(pauseButtonTemplate);
     }
     var lastSongNumber = currentlyPlayingSongNumber;
+    setSong(currentSongIndex + 1);
 
     updatePlayerBarSong();
     $('.main-controls .play-pause').html(playerBarPauseButton);
@@ -131,6 +128,6 @@ var nextSong = function() {
 
  $(document).ready(function() {
       setCurrentAlbum(albumPicasso);
-      $previousButton.click(nextSong);
-      $nextButton.click(nextSong);
+      $previousButton.click(nextPrevious);
+      $nextButton.click(nextPrevious);
 });
