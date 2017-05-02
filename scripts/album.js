@@ -95,24 +95,26 @@ var nextPrevious = function(event) {
     var isNext = $(event.currentTarget).hasClass('next');
     var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     //goes to first song if at last song (loop forward)
-    if (isNext === true) {
+      if (isNext === true) {
+          currentSongIndex++;
+          setSong(currentSongIndex + 1);
+    } else if (currentSongIndex >= currentAlbum.songs.length) {
+        currentSongIndex = 0;
         currentSongIndex++;
-        var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber + 1);
-        $nextSongNumberCell.html(pauseButtonTemplate);
-
-    } else {
+        setSong(currentSongIndex + 1);
+    }else if (currentSongIndex < 0){
+        currentSongIndex = currentAlbum.songs.length -1;
         currentSongIndex--;
-        var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber - 1);
-        $previousSongNumberCell.html(pauseButtonTemplate);
-    }
+        console.log(currentSongIndex, currentAlbum.songs.length - 1);
+        setSong(currentSongIndex + 1);
+      }
     var lastSongNumber = currentlyPlayingSongNumber;
-    setSong(currentSongIndex + 1);
+
 
     updatePlayerBarSong();
     $('.main-controls .play-pause').html(playerBarPauseButton);
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
     $lastSongNumberCell.html(lastSongNumber);
-
 };
 
 
