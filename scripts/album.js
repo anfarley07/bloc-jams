@@ -98,15 +98,15 @@ var nextPrevious = function(event) {
       if (isNext === true) {
           currentSongIndex++;
           setSong(currentSongIndex + 1);
-    } else if (currentSongIndex >= currentAlbum.songs.length) {
-        currentSongIndex = 0;
-        currentSongIndex++;
+      } else if (currentSongIndex >= currentAlbum.songs.length) {
+          currentSongIndex = 0;
+          currentSongIndex++;
         setSong(currentSongIndex + 1);
-    }else if (currentSongIndex < 0){
-        currentSongIndex = currentAlbum.songs.length -1;
-        currentSongIndex--;
-        console.log(currentSongIndex, currentAlbum.songs.length - 1);
-        setSong(currentSongIndex + 1);
+      } else if (currentSongIndex < 0){
+          currentSongIndex = currentAlbum.songs.length -1;
+          currentSongIndex--;
+          console.log(currentSongIndex, currentAlbum.songs.length - 1);
+          setSong(currentSongIndex + 1);
       }
     var lastSongNumber = currentlyPlayingSongNumber;
 
