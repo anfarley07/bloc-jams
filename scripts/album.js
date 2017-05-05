@@ -97,6 +97,12 @@ var nextPrevious = function(event) {
     //goes to first song if at last song (loop forward)
       if (isNext === true) {
           currentSongIndex++;
+          if (currentSongIndex === 0) {
+              lastSongNumber = currentAlbum.songs.length
+
+              } else {
+                lastSongNumber = currentSongIndex;
+          }
           setSong(currentSongIndex + 1);
       } else if (currentSongIndex >= currentAlbum.songs.length) {
           currentSongIndex = 0;
@@ -108,7 +114,6 @@ var nextPrevious = function(event) {
           console.log(currentSongIndex, currentAlbum.songs.length - 1);
           setSong(currentSongIndex + 1);
       }
-    var lastSongNumber = currentlyPlayingSongNumber;
 
 
     updatePlayerBarSong();
