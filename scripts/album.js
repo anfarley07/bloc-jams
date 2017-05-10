@@ -117,6 +117,26 @@ var clickHandler = function() {
      }
  };
 
+//sets ammount of time a song has played (out of total) for the seek bar in the player bar
+ var setCurrentTimeInPlayerBar = function(filterTimeCode(currentTime {
+      var currentTime = currentSoundFile.getTime();
+      $('.current-time').text(currentTime);
+ });
+
+//sets the total duration of the song in the player bar
+var setTotalTimeInPlayerBar = function(filterTimeCode(totalTime {
+    var totalTime = currentSoundFile.getDuration();
+    $('.total-time').text(totalTime);
+});
+
+//converts time to seconds
+var filterTimeCode = function(timeInSeconds) {
+    var secondsTime = parseFloat(currentSoundFile.getDuration();
+    var wholeMinute = Math.floor(secondsTime % 60);
+    var wholeSecond = Math.floor(secondsTime - wholeMinute);
+    $(this).text(wholeMinute + ':' + wholeSecond);
+};
+
  //updates seek bar when song plays
 var updateSeekBarWhileSongPlays = function() {
     if(currentSoundFile) {
@@ -125,6 +145,8 @@ var updateSeekBarWhileSongPlays = function() {
             var $seekBar = $('.seek-control .seek-bar');
 
             updateSeekPercentage($seekBar, seekBarFillRatio);
+            setCurrentTimeInPlayerBar();
+            setTotalTimeInPlayerBar();
         });
     }
 };
